@@ -12,7 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
-app.get("/", (req, res) => res.json({ message: "OK" }));
 app.use("/", router);
 
 // run app in port 4000
