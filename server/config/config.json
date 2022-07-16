@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "postgres",
-    "password": "",
-    "database": "challenge_chapter9_db",
-    "host": "127.0.0.1",
+    "password": "postgres",
+    "database": "challenge_chap9_db",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
