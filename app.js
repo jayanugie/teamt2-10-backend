@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 4000;
 const cors = require("cors");
 
 // import router
-const router = require("../backend/server/routers");
+const router = require("../binar-fsw-chap9-group2-backend/server/routers");
 
 // Middleware
 app.use(cors());
