@@ -98,7 +98,33 @@ const register = async (req, res) => {
   });
 };
 
+const showPlayers = (req, res) => {
+  let userData = [];
+  user_game.findAll({
+    order: [
+      ["id", "ASC"]
+    ]
+  })
+  .then(users => {
+    res.status(200).json({
+      message: "Berhasil ditampilkan",
+      data: {
+        users: users
+      }
+    });
+  })
+  .catch(err => {
+    res.status(404).json({
+      message: "Gagal memuat data"
+    });
+
+  }) 
+}
+
+
+
 module.exports = {
   login,
   register,
+  showPlayers
 };
