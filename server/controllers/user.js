@@ -99,19 +99,13 @@ const register = async (req, res) => {
 };
 
 const showPlayers = (req, res) => {
-  let userData = [];
   user_game.findAll({
     order: [
       ["id", "ASC"]
     ]
   })
   .then(users => {
-    res.status(200).json({
-      message: "Berhasil ditampilkan",
-      data: {
-        users: users
-      }
-    });
+    res.status(200).json(users);
   })
   .catch(err => {
     res.status(404).json({
