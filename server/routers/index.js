@@ -10,6 +10,7 @@ const jwtMiddleware = require("../middlewares/jwt");
 // api user
 router.post("/login", userController.login);
 router.post("/register", userController.register);
+router.get("/players", userController.showPlayers);
 
 // api game, menggunakan middleware jwt
 // router.post("/create-room", jwtMiddleware.jwtAuthorization, roomController.create);
