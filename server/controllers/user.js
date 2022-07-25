@@ -49,7 +49,7 @@ const login = async (req, res) => {
 
   // kirim response ke client
   return res.status(200).json({
-    message: "Login berhasil.",
+    message: "Login successful.",
     data: {
       id: userData.id,
       email: userData.email,
