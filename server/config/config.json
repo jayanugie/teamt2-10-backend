@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "",
-    "database": "challenge_chap9_db",
+    "database": "chapter10_db",
     "host": "localhost",
     "dialect": "postgres"
   },
