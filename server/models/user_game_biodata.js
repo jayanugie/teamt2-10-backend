@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      user_game_biodata.belongsTo(models.user_game, { foreignKey: "id_user", sourceKey: "id" }); // setiap 1 data biodata hanya bisa dimiliki 1 user
+      user_game_biodata.belongsTo(models.user_game, { 
+        foreignKey: "id_user", 
+        sourceKey: "id",
+        hooks: true,
+        onDelete: 'cascade'
+      }); // setiap 1 data biodata hanya bisa dimiliki 1 user
     }
   }
   user_game_biodata.init(

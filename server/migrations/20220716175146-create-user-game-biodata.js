@@ -9,7 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_user: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'user_games',
+            schema: 'public'
+          },
+          key: 'id'
+        },
+        allowNull: false
       },
       username: {
         type: Sequelize.STRING
