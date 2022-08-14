@@ -13,7 +13,7 @@ router.post("/login", userController.login);
 router.post("/register", userController.register);
 router.get("/players", userController.showPlayers);
 router.post("/biodata", biodata.addBiodata);
-
+router.get("/biodata/:id_user", biodata.getBiodata);
 
 // api game, menggunakan middleware jwt
 // router.post("/create-room", jwtMiddleware.jwtAuthorization, roomController.create);
