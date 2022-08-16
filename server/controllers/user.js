@@ -11,13 +11,13 @@ const { user_game } = require("../models");
 const jwtKey = process.env.JWT_KEY || "secret";
 
 const login = async (req, res) => {
-  // baca email & password dari request body
-  const email = req.body.email;
+  // baca username & password dari request body
+  const username = req.body.username;
   const password = req.body.password;
 
   // cari user yang sesuai dengan email
   const userData = await user_game.findOne({
-    where: { email: email },
+    where: { username: username }
   });
 
   // jika user tidak ditemukan
@@ -41,6 +41,8 @@ const login = async (req, res) => {
   const tokenPayload = {
     id: userData.id,
     email: userData.email,
+    username: userData.username,
+    city: userData.city,
     roles: userData.roles,
   };
 
@@ -53,6 +55,8 @@ const login = async (req, res) => {
     data: {
       id: userData.id,
       email: userData.email,
+      username: userData.username,
+      city: userData.city,
       roles: userData.roles,
       token: token,
     },
@@ -62,18 +66,32 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   // baca email & password dari request body
   const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
+  const city = req.body.city;
   const role = "PlayerUser"; // secara default, berikan role PlayerUser pada user baru
 
   // cari user yang sesuai dengan email
-  const alreadyRegistered = await user_game.findOne({
-    where: { email: email },
+  const emailAlreadyRegistered = await user_game.findOne({
+    where: { email: email }
   });
 
-  // jika user sudah terdaftar
-  if (alreadyRegistered) {
+  // jika email sudah terdaftar
+  if (emailAlreadyRegistered) {
     return res.status(401).json({
-      message: "User sudah terdaftar.",
+      message: "Email sudah terdaftar.",
+    });
+  }
+
+  // cari user yang sesuai dengan username
+  const usernameAlready = await user_game.findOne({
+    where: { username: username }
+  });
+
+  // jika username sudah terdaftar
+  if (usernameAlready) {
+    return res.status(401).json({
+      message: "Username sudah terdaftar.",
     });
   }
 
@@ -83,7 +101,9 @@ const register = async (req, res) => {
   // buat user baru
   const newUser = await user_game.create({
     email: email,
+    username: username,
     password: encryptedPassword,
+    city: city,
     role: role,
   });
 
@@ -93,11 +113,14 @@ const register = async (req, res) => {
     data: {
       id: newUser.id,
       email: newUser.email,
+      username: newUser.username,
+      city: newUser.city,
       role: newUser.role,
     },
   });
 };
 
+// tampilkan semua players
 const showPlayers = (req, res) => {
   user_game.findAll({
     order: [
@@ -116,9 +139,37 @@ const showPlayers = (req, res) => {
 }
 
 
+// menampilkan profil
+const getUserByName = async (req, res) => {
+  
+  const userData = await user_game.findOne({
+    where : { username: req.params.username }
+  });
+
+  if (!userData) {
+    return res.status(404).json({
+      message: "User tidak ditemukan"
+    });
+  }
+
+  const userBiodata = await user_game.findAll({
+    where: { username: req.params.username }
+  });
+
+  if (!userBiodata) {
+    return res.status(200).json({
+      data: [],
+    });
+  }
+
+  return res.status(200).json(userBiodata);
+}
+
+
 
 module.exports = {
   login,
   register,
-  showPlayers
+  showPlayers,
+  getUserByName
 };
