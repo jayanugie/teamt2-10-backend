@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "",
-    "database": "deploy_db",
-    "host": "localhost",
+    "username": "wzdfenefaamixa",
+    "password": "771ee0579a5ed464f3faf3c056732aaa503741857572558e5eca0edf92991eda",
+    "database": "dc9q0tkm2hsiq1",
+    "host": "ec2-54-204-241-136.compute-1.amazonaws.com",
     "dialect": "postgres"
   },
   "test": {
@@ -19,5 +19,11 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "dialectOptions": {
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false
+    }
   }
 }
